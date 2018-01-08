@@ -21,7 +21,7 @@ public class TechControlAuthorizationServerApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry
 				.addMapping("/*")
-				.allowedOrigins("*");
+				.allowedOrigins("https://tech-control-oauth2.herokuapp.com");
 			}
 		};
 	}
