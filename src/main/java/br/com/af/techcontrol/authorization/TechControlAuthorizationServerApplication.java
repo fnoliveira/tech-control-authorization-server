@@ -14,15 +14,4 @@ public class TechControlAuthorizationServerApplication {
 		SpringApplication.run(TechControlAuthorizationServerApplication.class, args);
 	}
 	
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry
-				.addMapping("/*")
-				.allowedOrigins("https://tech-control-oauth2.herokuapp.com");
-			}
-		};
-	}
 }
