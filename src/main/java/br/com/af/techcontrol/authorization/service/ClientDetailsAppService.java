@@ -2,6 +2,7 @@ package br.com.af.techcontrol.authorization.service;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,48 +27,28 @@ public class ClientDetailsAppService implements ClientDetailsService {
 		
 		c.setClientId("web_app");
 		c.setClientSecret("123456");
-		c.setGrantTypes("password");
-		c.setScopes("read,write");
-		c.setResourceIds("testjwtresourceid");
+		c.setAuthorizedGrantTypes(new HashSet<>(Arrays.asList("password")));
+		c.setScope(new HashSet<>(Arrays.asList("read,write")));
+		c.setResourceIds(new HashSet<>(Arrays.asList("rest-server")));
 		clientDetailsAppRepository.save(c);
 	}
 	
 	
 	@Override
 	public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-
+		
 		ClientDetailsApp clientDetailsApp = clientDetailsAppRepository.findByClientId(clientId);
 
 		BaseClientDetails baseClientDetails = new BaseClientDetails();
 
 		baseClientDetails.setClientId(clientDetailsApp.getClientId());
 		baseClientDetails.setClientSecret(clientDetailsApp.getClientSecret());
-		baseClientDetails.setAuthorizedGrantTypes(getGrantTypes(clientDetailsApp.getGrantTypes()));
-		baseClientDetails.setScope(getScopes(clientDetailsApp.getScopes()));
-		baseClientDetails.setResourceIds(getResourceIds(clientDetailsApp.getResourceIds()));
+		baseClientDetails.setAuthorizedGrantTypes(clientDetailsApp.getAuthorizedGrantTypes());
+		baseClientDetails.setScope(clientDetailsApp.getScope());
+		baseClientDetails.setResourceIds(clientDetailsApp.getResourceIds());
 
 		return baseClientDetails;
 	}
 
-	public Collection<String> getScopes(String scopes) {
-		if (scopes != null) {
-			return Arrays.asList(scopes.split(","));
-		}
-		return null;
-	}
-	
-	public List<String> getResourceIds(String resourceIds) {
-		if (resourceIds != null) {
-			return Arrays.asList(resourceIds.split(","));
-		}
-		return null;
-	}
-
-	public Collection<String> getGrantTypes(String grantTypes) {
-		if (grantTypes != null) {
-			return Arrays.asList(grantTypes.split(","));
-		}
-		return null;
-	}
 
 }

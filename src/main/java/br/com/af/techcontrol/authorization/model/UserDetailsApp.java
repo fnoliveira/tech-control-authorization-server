@@ -1,11 +1,13 @@
 package br.com.af.techcontrol.authorization.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-@Document(collection="UserApp")
+@Document(collection="user_app")
 @Data
 public class UserDetailsApp {
 
@@ -14,6 +16,6 @@ public class UserDetailsApp {
 
 	private String password;
 
-	private String roles;
+	private List<String> roles;
 
 }
