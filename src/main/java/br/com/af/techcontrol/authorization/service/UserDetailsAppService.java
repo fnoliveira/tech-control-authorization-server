@@ -1,7 +1,6 @@
 package br.com.af.techcontrol.authorization.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.af.techcontrol.authorization.model.UserDetailsApp;
@@ -22,17 +20,6 @@ public class UserDetailsAppService implements UserDetailsService {
 
 	@Autowired
 	private UserDetailsAppRepository userRepository;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	private void teste() {
-		UserDetailsApp a = new UserDetailsApp();
-		a.setUserName("demo@demo.com");
-		a.setPassword(passwordEncoder.encode("demo"));
-		a.setRoles(Arrays.asList("ROLE_STANDARD"));
-		userRepository.save(a);
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
