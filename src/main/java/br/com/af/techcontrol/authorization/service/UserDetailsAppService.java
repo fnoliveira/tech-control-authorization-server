@@ -30,7 +30,7 @@ public class UserDetailsAppService implements UserDetailsService {
 		UserDetailsApp a = new UserDetailsApp();
 		a.setUserName("demo@demo.com");
 		a.setPassword(passwordEncoder.encode("demo"));
-		a.setRoles(Arrays.asList("STANDARD_USER, ADMIN_USER"));
+		a.setRoles(Arrays.asList("ROLE_STANDARD"));
 		userRepository.save(a);
 	}
 
@@ -39,17 +39,17 @@ public class UserDetailsAppService implements UserDetailsService {
 
 		UserDetailsApp user = userRepository.findByUserName(username);
 
-		Collection<GrantedAuthority> rules = new ArrayList<>();
+		Collection<GrantedAuthority> roles = new ArrayList<>();
 
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("The username %s doesn't exist", username));
 		}
 
 		user.getRoles().forEach(role -> {
-			rules.add(new SimpleGrantedAuthority(role));
+			roles.add(new SimpleGrantedAuthority(role));
 		});
 
-		return new User(user.getUserName(), user.getPassword(), rules);
+		return new User(user.getUserName(), user.getPassword(), roles);
 
 	}
 }
