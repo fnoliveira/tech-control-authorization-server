@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import br.com.af.techcontrol.authorization.service.ClientDetailsAppService;
-
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -22,15 +20,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Value("${security.signing-key}")
 	private String signingKey;
 
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private ClientDetailsAppService clientDetailsAppService;
-
 	@Override
-	public void configure(ClientDetailsServiceConfigurer clientDetailsServiceConfigurer) throws Exception {
-		clientDetailsServiceConfigurer.withClientDetails(clientDetailsAppService);
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		
+			clients.inMemory()
+					.withClient("web_app")
+			 			.resourceIds("rest-server")
+			 			.authorizedGrantTypes("password")
+			 			.scopes("read", "write", "trust")
+			 			.secret("123456");
+			
 	}
 
 	@Override

@@ -1,9 +1,8 @@
 package br.com.af.techcontrol.authorization.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.af.techcontrol.authorization.model.UserDetailsApp;
 
-public interface UserDetailsAppRepository extends MongoRepository<UserDetailsApp, String> {
-	public UserDetailsApp findByUserName(String userName);
+public interface UserDetailsAppRepository extends JpaRepository<UserDetailsApp, String> {
 }

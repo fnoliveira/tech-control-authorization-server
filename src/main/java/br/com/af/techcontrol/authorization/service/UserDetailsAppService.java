@@ -1,7 +1,8 @@
 package br.com.af.techcontrol.authorization.service;
-
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +17,7 @@ import br.com.af.techcontrol.authorization.model.UserDetailsApp;
 import br.com.af.techcontrol.authorization.repository.UserDetailsAppRepository;
 
 @Service
+@Transactional
 public class UserDetailsAppService implements UserDetailsService {
 
 	@Autowired
@@ -24,7 +26,7 @@ public class UserDetailsAppService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		UserDetailsApp user = userRepository.findByUserName(username);
+		UserDetailsApp user = userRepository.findOne(username);
 
 		Collection<GrantedAuthority> roles = new ArrayList<>();
 
@@ -33,10 +35,10 @@ public class UserDetailsAppService implements UserDetailsService {
 		}
 
 		user.getRoles().forEach(role -> {
-			roles.add(new SimpleGrantedAuthority(role));
+			roles.add(new SimpleGrantedAuthority(role.getRole()));
 		});
 
-		return new User(user.getUserName(), user.getPassword(), roles);
+		return new User(user.getUsername(), user.getPassword(), roles);
 
 	}
 }
