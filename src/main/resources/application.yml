@@ -5,7 +5,41 @@ security:
     resource:
       filter-order: 3
   signing-key: MaYzkSjmkzPC57L
+
 spring:
+  profiles:
+    active: dev
+  main:
+    banner-mode: "off"
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://mysqldb:3306/tecdb?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    platform: mysql
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idleTimeout: 30000
+      poolName: tc_as
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    generate-ddl: false
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+---  
+spring:
+  profiles:
+    active: prod
+  main:
+    banner-mode: "off"
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://mysqldb:3306/tecdb?createDatabaseIfNotExist=true
