@@ -8,10 +8,10 @@ security:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:~/tecdb;AUTO_SERVER=TRUE
+    url: jdbc:mysql://localhost:3001/tecdb?createDatabaseIfNotExist=true
     username: root
     password: root
-    platform: h2
+    platform: mysql
     hikari:
       connection-test-query: SELECT 1 FROM DUAL
       minimum-idle: 5
@@ -20,9 +20,8 @@ spring:
       poolName: tc_as
       maxLifetime: 2000000
       connectionTimeout: 30000
-      
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     generate-ddl: false
     show-sql: true
     open-in-view: false
