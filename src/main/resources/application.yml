@@ -8,7 +8,7 @@ security:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3001/tecdb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysqldb:3306/tecdb?createDatabaseIfNotExist=true
     username: root
     password: root
     platform: mysql
