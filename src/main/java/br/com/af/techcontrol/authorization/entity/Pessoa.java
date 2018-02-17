@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -23,10 +24,12 @@ public abstract class Pessoa extends BaseEntityAudit {
 	private static final long serialVersionUID = 1L;
 
 	@NotBlank
-	@Column(name = "nome", length = 50)
+	@Size(min = 3, max = 50)
+	@Column(length = 50)
 	private String nome;
 
-	@Column(name = "observacao", length = 255)
+	@Size(min = 3, max = 255)
+	@Column(length = 255)
 	private String observacao;
 
 }
