@@ -2,28 +2,32 @@ package br.com.af.techcontrol.authorization.entity;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@EqualsAndHashCode(callSuper = false)
-@Data
-public class Privilege extends BaseEntity{
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Privilege extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
+	@NonNull
 	private String name;
 
-	@ManyToMany(mappedBy = "privileges")
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "privileges")
 	private Collection<Role> roles;
 
-	public Privilege(String name) {
-		super();
-		this.name = name;
-	}
-	
-	public Privilege() {
-	}
-	
+
 }

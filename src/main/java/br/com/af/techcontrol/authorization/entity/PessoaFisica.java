@@ -10,18 +10,23 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.NotBlank;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "PESSOA_FISICA")
 @DiscriminatorValue(value = "PF")
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaFisica extends Pessoa {
 
-	@Column(unique = true, name = "cpf", length = 14, nullable = false)
+	private static final long serialVersionUID = 1L;
+
+	@NotBlank
+	@Column(unique = true, name = "cpf", length = 14)
 	private String cpf;
 
 	@Temporal(TemporalType.DATE)
@@ -31,5 +36,5 @@ public class PessoaFisica extends Pessoa {
 	@Column(name = "sexo", length = 1)
 	private String sexo;
 
-
+	private Boolean isEnable;
 }

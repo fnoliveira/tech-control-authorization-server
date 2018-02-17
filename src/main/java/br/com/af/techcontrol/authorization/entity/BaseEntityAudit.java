@@ -12,27 +12,33 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public abstract class BaseEntityAudit extends BaseEntity{
+public abstract class BaseEntityAudit extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
+	@Getter
+	@Setter
 	private String createdBy;
 
+	@Getter
+	@Setter
 	private String updatedBy;
 
 	@Column(nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
+	@Getter
 	private Date createdAt;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
+	@Getter
 	private Date updatedAt;
 
 }

@@ -2,38 +2,38 @@ package br.com.af.techcontrol.authorization.entity;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = false)
-public class Role extends BaseEntity{
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Role extends BaseEntity {
 
-    private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
- 
-    @ManyToMany
-    @JoinTable(
-        name = "roles_privileges", 
-        joinColumns = @JoinColumn(
-          name = "role_id", referencedColumnName = "id"), 
-        inverseJoinColumns = @JoinColumn(
-          name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
-
-	public Role(String name) {
-		super();
-		this.name = name;
-	}
+	private static final long serialVersionUID = 1L;
 	
-	public Role() {
-		
-	}
+	@NonNull
+	private String name;
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
+	private Collection<User> users;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+	private Collection<Privilege> privileges;
+
+	
 }

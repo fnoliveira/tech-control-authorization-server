@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
 				throw new UsernameNotFoundException("No user found with username: " + username);
 			}
 			org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
-					user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true,
+					user.getUsername(), user.getPassword(), user.getIsEnable(), true, true, true,
 					getAuthorities(user.getRoles()));
 			return userDetails;
 		} catch (final Exception e) {

@@ -9,15 +9,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class User extends BaseEntity{
 
-    private String username;
+	private static final long serialVersionUID = 1L;
+
+	private String username;
     
     private String email;
     
@@ -27,8 +33,7 @@ public class User extends BaseEntity{
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
     
-    
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable( 
         name = "users_roles", 
         joinColumns = @JoinColumn(
@@ -37,4 +42,5 @@ public class User extends BaseEntity{
           name = "role_id", referencedColumnName = "id")) 
     private Collection<Role> roles;
 
+    private Boolean isEnable;
 }
