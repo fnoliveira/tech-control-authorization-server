@@ -11,10 +11,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "PESSOA_JURIDICA")
 @DiscriminatorValue(value = "PJ")
@@ -25,7 +27,7 @@ public class PessoaJuridica extends Pessoa {
 
 	@NotBlank
 	@Size(min = 3, max = 100)
-	@Column(name = "razao_social", length = 100)
+	@Column(length = 100)
 	private String razaoSocial;
 
 	@NotBlank

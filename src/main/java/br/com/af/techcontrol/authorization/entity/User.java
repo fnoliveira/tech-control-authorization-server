@@ -25,8 +25,6 @@ public class User extends BaseEntity{
 
 	private String username;
     
-    private String email;
-    
     private String password;
     
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
