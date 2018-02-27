@@ -1,12 +1,10 @@
 package br.com.af.techcontrol.authorization.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -30,15 +28,13 @@ public abstract class BaseEntityAudit extends BaseEntity {
 	private String updatedBy;
 
 	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
 	@Getter
-	private Date createdAt;
+	private LocalDateTime createdAt;
 
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	@Getter
-	private Date updatedAt;
+	private LocalDateTime updatedAt;
 
 }
