@@ -33,7 +33,7 @@ public class Contato extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@Fetch(FetchMode.SELECT)
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name = "contato_id", referencedColumnName = "id")
 	private List<Telefone> telefones;
 

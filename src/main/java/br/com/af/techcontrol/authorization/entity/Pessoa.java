@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.authorization.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,8 +19,6 @@ import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
@@ -70,22 +69,20 @@ public class Pessoa extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "pessoa")
 	private User user;
 
 	@Getter
 	@Setter
-	@Fetch(FetchMode.SELECT)
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "pessoas_enderecos", joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "endereco_id", referencedColumnName = "id"))
 	private List<Endereco> enderecos;
 
 	@Getter
 	@Setter
-	@Fetch(FetchMode.SELECT)
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
-	private List<Contato> contatos;
+	private List<Contato> contatos = new ArrayList<Contato>();
 
 	@NonNull
 	@Getter

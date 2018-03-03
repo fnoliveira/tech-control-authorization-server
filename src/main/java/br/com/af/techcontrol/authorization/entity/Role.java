@@ -1,9 +1,7 @@
 package br.com.af.techcontrol.authorization.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -34,13 +32,13 @@ public class Role extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "roles_privileges", joinColumns = @JoinColumn(
 					name = "role_id", referencedColumnName = "id"), 
 			inverseJoinColumns = @JoinColumn(
 					name = "privilege_id", referencedColumnName = "id"))
-	private Collection<Privilege> privileges = new ArrayList<Privilege>();
+	private Collection<Privilege> privileges;
 
 	
 }
