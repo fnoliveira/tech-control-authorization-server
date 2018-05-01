@@ -2,14 +2,12 @@ package br.com.af.techcontrol.authorization.entity;
 
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -26,13 +24,6 @@ import lombok.Setter;
 public class User extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
-
-	@NonNull
-	@Getter
-	@Setter
-	@OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
 	
 	@Getter
 	@NonNull
